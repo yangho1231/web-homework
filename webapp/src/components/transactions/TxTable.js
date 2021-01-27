@@ -1,6 +1,9 @@
 import React from 'react'
 import { arrayOf, string, bool, number, shape } from 'prop-types'
 import { css } from '@emotion/core'
+import { REMOVE_TRANSACTION, GET_TRANSACTIONS } from '../../gql/transactions'
+import { useMutation } from '@apollo/client'
+import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
 
 const styles = css`
  .header {
@@ -11,6 +14,7 @@ const styles = css`
 const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
 
 export function TxTable ({ data }) {
+  const [removeTransaction] = useMutation(REMOVE_TRANSACTION, { refetchQueries: [{ query: GET_TRANSACTIONS }] })
   return (
     <table css={styles}>
       <tbody>
@@ -22,19 +26,21 @@ export function TxTable ({ data }) {
           <td >Debit</td>
           <td >Credit</td>
           <td >Amount</td>
+          <td >Remove</td>
         </tr>
         {
           data.map(tx => {
-            const { id, user_id: userId, description, merchant_id: merchantId, debit, credit, amount } = tx
+            const { id, userId, description, merchantId, debit, credit, amount } = tx
             return (
               <tr data-testid={`transaction-${id}`} key={`transaction-${id}`}>
                 <td data-testid={makeDataTestId(id, 'id')}>{id}</td>
                 <td data-testid={makeDataTestId(id, 'userId')}>{userId}</td>
                 <td data-testid={makeDataTestId(id, 'description')}>{description}</td>
                 <td data-testid={makeDataTestId(id, 'merchant')}>{merchantId}</td>
-                <td data-testid={makeDataTestId(id, 'debit')}>{debit}</td>
-                <td data-testid={makeDataTestId(id, 'credit')}>{credit}</td>
+                <td data-testid={makeDataTestId(id, 'debit')}>{String(debit)}</td>
+                <td data-testid={makeDataTestId(id, 'credit')}>{String(credit)}</td>
                 <td data-testid={makeDataTestId(id, 'amount')}>{amount}</td>
+                <td><DeleteForeverOutlinedIcon onClick={() => { removeTransaction({ variables: { id } }) }} /></td>
               </tr>
             )
           })

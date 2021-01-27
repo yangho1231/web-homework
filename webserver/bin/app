@@ -6,3 +6,4 @@ require('../')({
   port: 8000,
   host: 'localhost'
 })
+console.log("hi");
