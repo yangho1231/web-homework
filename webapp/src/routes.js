@@ -2,8 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { css } from '@emotion/core'
 import { Home } from './home/home-page'
-import { AddTransaction } from './transactions/add-transaction'
-import { ShowTransactions } from './transactions/show-transactions'
+import { MainTransaction } from './transactions/main-transactions'
+import { EditTransaction } from './transactions/edit-transaction'
 
 function AppRouter () {
   return (
@@ -21,8 +21,8 @@ function AppRouter () {
         </nav>
         <div className='main-content' css={contentStyle}>
           <Route component={Home} exact path='/' />
-          <Route component={AddTransaction} exact path='/addtransaction' />
-          <Route component={ShowTransactions} exact path='/transactions' />
+          <Route component={EditTransaction} exact path='/transactions/edit/:id' />
+          <Route component={MainTransaction} exact path='/transactions' />
         </div>
       </div>
     </Router>

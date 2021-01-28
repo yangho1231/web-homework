@@ -24,7 +24,7 @@ const mutation = new GraphQLObjectType({
         return (new TransactionModel({ userId, description, merchantId, debit, credit, amount })).save()
       }
     },
-    updateTransacton: {
+    updateTransaction: {
       type: TransactionType,
       args: {
         id: { type: GraphQLString },
@@ -37,7 +37,7 @@ const mutation = new GraphQLObjectType({
       },
 
       resolve(parentValue, args) {
-        return  Transactions.findOneUpdate({_id: args.id}, {description: args.description}, {new: true})
+        return  Transactions.findOneUpdate({_id: args.id}, {description: args.description, userId: args.userId, merchantId: args.merchantId, debit:args.debit, credit:args.credit, amount:args.amount}, {new: true})
       }
     },
     removeTransaction: {
