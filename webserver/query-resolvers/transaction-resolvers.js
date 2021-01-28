@@ -1,4 +1,3 @@
-const Transaction = require('../data-models/Transaction')
 const { TransactionModel } = require('../data-models/Transaction')
 const { packageModel } = require('./utils.js')
 

@@ -10,12 +10,6 @@ import FormControl from '@material-ui/core/FormControl'
 import FormLabel from '@material-ui/core/FormLabel'
 
 export function GlobalForm ({ data }) {
-//   const [userId, setUserId] = useState(data.userId ? data.userId : '')
-//   const [merchantId, setMerchantId] = useState(data.merchantId ? data.merchantId : '')
-//   const [amount, setAmount] = useState(data.amount ? parseFloat(data.amount) : parseFloat(0))
-//   const [description, setDescription] = useState(data.description ? data.description : '')
-//   const emptyTransaction = { credit: false, debit: false }
-//   const [transaction, setTransaction] = useState((data.credit || data.debit) ? { credit: data.credit, debit: data.debit } : emptyTransaction)
   const emptyTransaction = {
     userId: (data && data.userId) ? data.userId : '',
     merchantId: (data && data.merchantId) ? data.merchantId : '',

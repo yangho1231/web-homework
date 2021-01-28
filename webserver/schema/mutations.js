@@ -1,10 +1,14 @@
 const graphql = require('graphql')
 const { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLFloat } = graphql
 const { TransactionModel } = require('../data-models/Transaction')
+const { UserModel } = require('../data-models/User')
+const { MerchantModel } = require('../data-models/Merchant')
 const TransactionType = require('./transaction-type')
 const Transactions = require('../query-resolvers/transaction-resolvers.js')
-const Transaction = require('../data-models/Transaction')
-
+const UserType = require('./user-type')
+const Users = require('../query-resolvers/user-resolvers')
+const MerchantType = require('./merchant-type')
+const Merchants = require('../query-resolvers/merchant-resolvers')
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -49,7 +53,64 @@ const mutation = new GraphQLObjectType({
         return Transactions.deleteOne(args.id);
       }
     },
-
+    addUser: {
+      type: UserType,
+      args: {
+        firstName: { type: GraphQLString },
+        lastName: { type: GraphQLString }
+      },
+      resolve(parentValue, {firstName, lastName}) {
+        return (new UserModel ({ firstName, lastName })).save()
+      }
+    },
+    updateUser: {
+      type: UserType,
+      args: {
+        id: { type: GraphQLString },
+        firstName: { type: GraphQLString },
+        lastName: { type: GraphQLString },
+      },
+      resolve(parentValue, args) {
+        return  Users.findOneUpdate({_id: args.id}, {firstName: args.firstName, lastName: args.lastName}, {new: true})
+      }
+    },
+    removeUser: {
+      type: UserType,
+      args: {
+        id: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        return Users.deleteOne(args.id);
+      }
+    },
+    addMerchant: {
+      type: MerchantType,
+      args: {
+        merchantName: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        return (new MerchantModel (args)).save()
+      }
+    },
+    updateMerchant: {
+      type: MerchantType,
+      args: {
+        id: { type: GraphQLString },
+        merchantName: { type: GraphQLString },
+      },
+      resolve(parentValue, args) {
+        return  Merchants.findOneUpdate({_id: args.id}, {merchantName: args.merchantName}, {new: true})
+      }
+    },
+    removeMerchant: {
+      type: MerchantType,
+      args: {
+        id: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        return Merchants.deleteOne(args.id);
+      }
+    },
   }
 })
 
