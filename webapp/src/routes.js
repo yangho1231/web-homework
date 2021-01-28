@@ -4,6 +4,10 @@ import { css } from '@emotion/core'
 import { Home } from './home/home-page'
 import { MainTransaction } from './transactions/main-transactions'
 import { EditTransaction } from './transactions/edit-transaction'
+import { MainMerchants } from './merchants/main-merchants'
+import { MainUsers } from './users/main-users'
+import { EditUser } from './users/edit-user'
+import { EditMerchant } from './merchants/edit-merchant'
 
 function AppRouter () {
   return (
@@ -17,12 +21,22 @@ function AppRouter () {
             <li>
               <Link to='/transactions'>Transactions</Link>
             </li>
+            <li>
+              <Link to='/users'>Users</Link>
+            </li>
+            <li>
+              <Link to='/merchants'>Merchants</Link>
+            </li>
           </ul>
         </nav>
         <div className='main-content' css={contentStyle}>
           <Route component={Home} exact path='/' />
-          <Route component={EditTransaction} exact path='/transactions/edit/:id' />
           <Route component={MainTransaction} exact path='/transactions' />
+          <Route component={MainUsers} exact path='/users' />
+          <Route component={MainMerchants} exact path='/merchants' />
+          <Route component={EditTransaction} exact path='/transactions/edit/:id' />
+          <Route component={EditUser} exact path='/users/edit/:id' />
+          <Route component={EditMerchant} exact path='/merchants/edit/:id' />
         </div>
       </div>
     </Router>

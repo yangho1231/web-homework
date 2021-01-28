@@ -51,7 +51,7 @@ export function GlobalForm ({ data }) {
       setTransaction({ ...transaction, debit: true, credit: false })
     }
   }
-  const handleTextChnage = (event) => {
+  const handleTextChange = (event) => {
     const target = event.target
     const value = target.name === 'amount' ? parseFloat(target.value) : target.value
     const name = target.name
@@ -60,16 +60,16 @@ export function GlobalForm ({ data }) {
   return (
     <form onSubmit={onSubmit}>
       <div>
-        <TextField id='standard-basic' label='userID' name='userId' onChange={handleTextChnage} placeholder='Add UserID' type='text' value={transaction.userId} />
+        <TextField id='standard-basic' label='userID' name='userId' onChange={handleTextChange} placeholder='Add UserID' type='text' value={transaction.userId} />
       </div>
       <div>
-        <TextField id='standard-basic' label='merchantId' name='merchantId' onChange={handleTextChnage} placeholder='Add MerchantID' type='text' value={transaction.merchantId} />
+        <TextField id='standard-basic' label='merchantId' name='merchantId' onChange={handleTextChange} placeholder='Add MerchantID' type='text' value={transaction.merchantId} />
       </div>
       <div>
-        <TextField id='standard-basic' label='amount' name='amount' onChange={handleTextChnage} placeholder='Add amount' type='number' value={transaction.amount} />
+        <TextField id='standard-basic' label='amount' name='amount' onChange={handleTextChange} placeholder='Add amount' type='number' value={transaction.amount} />
       </div>
       <div>
-        <TextField id='standard-basic' label='description' name='description' onChange={handleTextChnage} placeholder='Add description' type='text' value={transaction.description} />
+        <TextField id='standard-basic' label='description' name='description' onChange={handleTextChange} placeholder='Add description' type='text' value={transaction.description} />
       </div>
       <FormControl>
         <FormLabel>Credit/Debit</FormLabel>
