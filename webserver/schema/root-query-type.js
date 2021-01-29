@@ -5,6 +5,8 @@ const UserType = require('./user-type')
 const Users = require('../query-resolvers/user-resolvers.js')
 const MerchantType = require('./merchant-type')
 const Merchants = require('../query-resolvers/merchant-resolvers.js')
+const CategoryType = require('./category-type')
+const Categories = require('../query-resolvers/category-resolvers')
 
 const {
   GraphQLBoolean,
@@ -33,7 +35,8 @@ const RootQuery = new GraphQLObjectType({
         debit: { type: GraphQLBoolean },
         description: { type: GraphQLString },
         merchantId: { type: GraphQLString },
-        userId: { type: GraphQLString }
+        userId: { type: GraphQLString },
+        categoryId: { type: GraphQLString }
       },
       resolve (parentValue, args) {
         return Transactions.find(args)
@@ -74,6 +77,24 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve (parentValue, args) {
         return Merchants.find(args)
+      }
+    },
+    category: {
+      type: CategoryType,
+      args: {
+        id: { type: graphql.GraphQLString }
+      },
+      resolve (parentValue, args) {
+        return Categories.findOne(args.id)
+      }
+    },
+    categories: {
+      type: GraphQLList(CategoryType),
+      args: {
+        categoryName: { type: GraphQLString }
+      },
+      resolve (parentValue, args) {
+        return Categories.find(args)
       }
     }
   })

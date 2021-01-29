@@ -16,6 +16,7 @@ const TransactionType = new GraphQLObjectType({
     userId: { type: GraphQLString },
     description: { type: GraphQLString },
     merchantId: { type: GraphQLString },
+    categoryId: { type: GraphQLString },
     debit: { type: GraphQLBoolean },
     credit: { type: GraphQLBoolean },
     amount: { type: GraphQLFloat },
@@ -37,12 +38,23 @@ const TransactionType = new GraphQLObjectType({
       resolve (parentValue, args) {
         return Merchants.findOne(parentValue.merchantId)
       }
+    },
+    category: {
+      type: CategoryType,
+      args: {
+        categoryName: { type: GraphQLString },
+      },
+      resolve (parentValue, args) {
+        return Categories.findOne(parentValue.categoryId)
+      }
     }
   })
 })
 module.exports = TransactionType
 const Users = require('../query-resolvers/user-resolvers.js')
 const Merchants = require('../query-resolvers/merchant-resolvers.js')
+const Categories = require('../query-resolvers/category-resolvers')
 const MerchantType = require('./merchant-type.js')
 const UserType = require('./user-type')
+const CategoryType = require('./category-type')
 

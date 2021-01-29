@@ -8,6 +8,8 @@ import { MainMerchants } from './merchants/main-merchants'
 import { MainUsers } from './users/main-users'
 import { EditUser } from './users/edit-user'
 import { EditMerchant } from './merchants/edit-merchant'
+import { MainCategories } from './categories/main-categories'
+import { EditCategory } from './categories/edit-category'
 
 function AppRouter () {
   return (
@@ -27,6 +29,9 @@ function AppRouter () {
             <li>
               <Link to='/merchants'>Merchants</Link>
             </li>
+            <li>
+              <Link to='/categories'>Categories</Link>
+            </li>
           </ul>
         </nav>
         <div className='main-content' css={contentStyle}>
@@ -34,9 +39,12 @@ function AppRouter () {
           <Route component={MainTransaction} exact path='/transactions' />
           <Route component={MainUsers} exact path='/users' />
           <Route component={MainMerchants} exact path='/merchants' />
+          <Route component={MainCategories} exact path='/categories' />
           <Route component={EditTransaction} exact path='/transactions/edit/:id' />
           <Route component={EditUser} exact path='/users/edit/:id' />
           <Route component={EditMerchant} exact path='/merchants/edit/:id' />
+          <Route component={EditCategory} exact path='/categories/edit/:id' />
+
         </div>
       </div>
     </Router>

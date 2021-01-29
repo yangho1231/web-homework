@@ -25,8 +25,8 @@ async function deleteOne (id) {
   return packageModel(transaction)[0]  || null
 }
 
-async function findOneUpdate (id, description, userId, merchantId, debit, credit, amount,  user) {
-  const query = TransactionModel.findOneAndUpdate(id, description, userId, merchantId, debit, credit, amount, user)
+async function findOneUpdate (id, description, userId, merchantId, debit, credit, amount, categoryId, user) {
+  const query = TransactionModel.findOneAndUpdate(id, description, userId, merchantId, debit, credit, amount, categoryId, user)
   const transaction = await query.exec()
 
   return packageModel(transaction)[0] || null

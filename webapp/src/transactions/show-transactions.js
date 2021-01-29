@@ -4,7 +4,7 @@ import { css } from '@emotion/core'
 import { REMOVE_TRANSACTION, GET_TRANSACTIONS } from '../gql/transactions'
 import { useMutation } from '@apollo/client'
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
-import EditAttributesIcon from '@material-ui/icons/EditAttributes'
+import EditIcon from '@material-ui/icons/Edit'
 import { Link } from 'react-router-dom'
 
 const styles = css`
@@ -22,9 +22,10 @@ export function ShowTransactions ({ data }) {
       <tbody>
         <tr className='header'>
           <td >ID</td>
-          <td >User ID</td>
+          <td >User Name</td>
           <td >Description</td>
-          <td >Merchant ID</td>
+          <td >Merchant Name</td>
+          <td >Category</td>
           <td >Debit</td>
           <td >Credit</td>
           <td >Amount</td>
@@ -32,18 +33,19 @@ export function ShowTransactions ({ data }) {
         </tr>
         {
           data.map(tx => {
-            const { id, userId, description, merchantId, debit, credit, amount } = tx
+            const { id, user, description, merchant, category, debit, credit, amount } = tx
             return (
               <tr data-testid={`transaction-${id}`} key={`transaction-${id}`}>
                 <td data-testid={makeDataTestId(id, 'id')}>{id}</td>
-                <td data-testid={makeDataTestId(id, 'userId')}>{userId}</td>
+                <td data-testid={makeDataTestId(id, 'userId')}>{user.firstName} {user.lastName}</td>
                 <td data-testid={makeDataTestId(id, 'description')}>{description}</td>
-                <td data-testid={makeDataTestId(id, 'merchant')}>{merchantId}</td>
+                <td data-testid={makeDataTestId(id, 'merchant')}>{merchant.merchantName}</td>
+                <td data-testid={makeDataTestId(id, 'category')}>{category.categoryName}</td>
                 <td data-testid={makeDataTestId(id, 'debit')}>{String(debit)}</td>
                 <td data-testid={makeDataTestId(id, 'credit')}>{String(credit)}</td>
                 <td data-testid={makeDataTestId(id, 'amount')}>{amount}</td>
                 <td><DeleteForeverOutlinedIcon onClick={() => { removeTransaction({ variables: { id } }) }} /></td>
-                <td><Link to={`/transactions/edit/${id}`}><EditAttributesIcon /></Link></td>
+                <td><Link to={`/transactions/edit/${id}`}><EditIcon /></Link></td>
               </tr>
             )
           })

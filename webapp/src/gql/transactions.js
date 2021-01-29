@@ -10,19 +10,43 @@ export const GET_TRANSACTIONS = gql`
         debit
         credit
         merchantId
+        merchant {
+          id
+          merchantName
+        }
+        user {
+          id
+          firstName
+          lastName
+        }
+        category {
+          id
+          categoryName
+        }
       }
   }
 `
 export const ADD_TRANSACTION = gql`
-  mutation addTransaction($userId:String!, $amount:Float!, $description:String!, $debit:Boolean!, $credit:Boolean!, $merchantId:String!) {
-      addTransaction(userId:$userId, amount:$amount, description:$description, debit:$debit, credit:$credit, merchantId:$merchantId) {
+  mutation addTransaction($userId:String!, $amount:Float!, $description:String!, $debit:Boolean!, $credit:Boolean!, $merchantId:String!, $categoryId:String!) {
+      addTransaction(userId:$userId, amount:$amount, description:$description, debit:$debit, credit:$credit, merchantId:$merchantId, categoryId:$categoryId) {
           id
-          userId
           amount
           description
           debit
           credit
-          merchantId
+          merchant {
+            id
+            merchantName
+          }
+          user {
+            id
+            firstName
+            lastName
+          }
+          category {
+            id
+            categoryName
+          }
       }
   }
 `
@@ -43,19 +67,33 @@ query transaction($id: String!) {
     debit
     credit
     merchantId
+    merchant {
+      id
+      merchantName
+    }
+    user {
+      id
+      firstName
+      lastName
+    }
+    category {
+      id
+      categoryName
+    }
   }
 }
 `
 export const UPDATE_TRANSACTION = gql`
-  mutation updateTransaction($id:String!, $userId:String!, $amount:Float!, $description:String!, $debit:Boolean!, $credit:Boolean!, $merchantId:String!) {
-    updateTransaction(id:$id, userId:$userId, amount:$amount, description:$description, debit:$debit, credit:$credit, merchantId:$merchantId) {
+  mutation updateTransaction($id:String!, $userId:String!, $amount:Float!, $description:String!, $debit:Boolean!, $credit:Boolean!, $merchantId:String!, $categoryId:String!) {
+    updateTransaction(id:$id, userId:$userId, amount:$amount, description:$description, debit:$debit, credit:$credit, merchantId:$merchantId, categoryId:$categoryId) {
       id
       userId
       amount
       description
       debit
       credit
-      merchantId    
+      merchantId
+      categoryId
     }
   }
 `

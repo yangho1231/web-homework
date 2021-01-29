@@ -9,6 +9,9 @@ const UserType = require('./user-type')
 const Users = require('../query-resolvers/user-resolvers')
 const MerchantType = require('./merchant-type')
 const Merchants = require('../query-resolvers/merchant-resolvers')
+const CategoryType = require('./category-type')
+const Categories = require('../query-resolvers/category-resolvers')
+const { CategoryModel } = require('../data-models/Category')
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -21,11 +24,12 @@ const mutation = new GraphQLObjectType({
         merchantId: { type: GraphQLString },
         debit: { type: GraphQLBoolean },
         credit: { type: GraphQLBoolean },
-        amount: { type: GraphQLFloat }
+        amount: { type: GraphQLFloat },
+        categoryId: { type: GraphQLString }
       },
       /* eslint-disable-next-line camelcase */
-      resolve (parentValue, { userId, description, merchantId, debit, credit, amount }) {
-        return (new TransactionModel({ userId, description, merchantId, debit, credit, amount })).save()
+      resolve (parentValue, { userId, description, merchantId, debit, credit, amount, categoryId }) {
+        return (new TransactionModel({ userId, description, merchantId, debit, credit, amount, categoryId })).save()
       }
     },
     updateTransaction: {
@@ -37,11 +41,12 @@ const mutation = new GraphQLObjectType({
         merchantId: { type: GraphQLString },
         debit: { type: GraphQLBoolean },
         credit: { type: GraphQLBoolean },
-        amount: { type: GraphQLFloat }      
+        amount: { type: GraphQLFloat } ,
+        categoryId: { type: GraphQLString }     
       },
 
       resolve(parentValue, args) {
-        return  Transactions.findOneUpdate({_id: args.id}, {description: args.description, userId: args.userId, merchantId: args.merchantId, debit:args.debit, credit:args.credit, amount:args.amount}, {new: true})
+        return  Transactions.findOneUpdate({_id: args.id}, {description: args.description, userId: args.userId, merchantId: args.merchantId, debit:args.debit, credit:args.credit, amount:args.amount, categoryId:args.categoryId}, {new: true})
       }
     },
     removeTransaction: {
@@ -109,6 +114,34 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, args) {
         return Merchants.deleteOne(args.id);
+      }
+    },
+    addCategory: {
+      type: CategoryType,
+      args: {
+        categoryName: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        return (new CategoryModel (args)).save()
+      }
+    },
+    updateCategory: {
+      type: CategoryType,
+      args: {
+        id: { type: GraphQLString },
+        categoryName: { type: GraphQLString },
+      },
+      resolve(parentValue, args) {
+        return  Categories.findOneUpdate({_id: args.id}, {categoryName: args.categoryName}, {new: true})
+      }
+    },
+    removeCategory: {
+      type: CategoryType,
+      args: {
+        id: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        return Categories.deleteOne(args.id);
       }
     },
   }
