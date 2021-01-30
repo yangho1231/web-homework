@@ -1,10 +1,10 @@
 import React from 'react'
 import { arrayOf, string, shape } from 'prop-types'
 import { css } from '@emotion/core'
-import { GET_MERCHANTS, REMOVE_MERCHANT } from '../gql/merchants'
-import { useMutation } from '@apollo/client'
-import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
-import EditAttributesIcon from '@material-ui/icons/EditAttributes'
+// import { GET_MERCHANTS, REMOVE_MERCHANT } from '../gql/merchants'
+// import { useMutation } from '@apollo/client'
+// import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
+import EditIcon from '@material-ui/icons/EditAttributes'
 import { Link } from 'react-router-dom'
 
 const styles = css`
@@ -16,7 +16,7 @@ const styles = css`
 const makeDataTestId = (merchantId, fieldName) => `merchant-${merchantId}-${fieldName}`
 
 export function ShowMerchants ({ data }) {
-  const [removeMerchant] = useMutation(REMOVE_MERCHANT, { refetchQueries: [{ query: GET_MERCHANTS }] })
+  // const [removeMerchant] = useMutation(REMOVE_MERCHANT, { refetchQueries: [{ query: GET_MERCHANTS }] })
   return (
     <table css={styles}>
       <tbody>
@@ -31,8 +31,8 @@ export function ShowMerchants ({ data }) {
               <tr data-testid={`merchant-${id}`} key={`merchant-${id}`}>
                 <td data-testid={makeDataTestId(id, 'id')}>{id}</td>
                 <td data-testid={makeDataTestId(id, 'merchantName')}>{merchantName}</td>
-                <td><DeleteForeverOutlinedIcon onClick={() => { removeMerchant({ variables: { id } }) }} /></td>
-                <td><Link to={`/merchants/edit/${id}`}><EditAttributesIcon /></Link></td>
+                {/* <td><DeleteForeverOutlinedIcon onClick={() => { removeMerchant({ variables: { id } }) }} /></td> */}
+                <td><Link to={`/merchants/edit/${id}`}><EditIcon /></Link></td>
               </tr>
             )
           })

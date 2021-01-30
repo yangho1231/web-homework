@@ -2,12 +2,15 @@ import React, { Fragment } from 'react'
 import { useQuery } from '@apollo/client'
 import { GET_TRANSACTIONS } from '../gql/transactions'
 import { Container } from '@material-ui/core'
-import { AddTransaction } from './add-transaction'
+// import { AddTransaction } from './add-transaction'
+// import { ShowTransactions } from './show-transactions'
+// import { TransactionsCharts } from './transactions-chart'
+import { ShowWarning } from './show-warning'
 import { ShowTransactions } from './show-transactions'
-import { TransactionsCharts } from './transactions-chart'
 
 export function MainTransaction () {
   const { loading, error, data } = useQuery(GET_TRANSACTIONS)
+  console.log(data)
 
   if (loading) {
     return (
@@ -25,9 +28,8 @@ export function MainTransaction () {
   }
   return (
     <Container>
-      <AddTransaction />
-      <ShowTransactions data={data.transactions} />
-      <TransactionsCharts data={data.transactions} />
+      {data && data.transactions.length > 0 && <ShowTransactions data={data.transactions} />}
+      {data && <ShowWarning />}
     </Container>
   )
 }

@@ -97,3 +97,20 @@ export const UPDATE_TRANSACTION = gql`
     }
   }
 `
+export const GET_CATEGORIES_MERCHANTS_USERS = gql`
+{
+  categories {
+    id
+    categoryName
+  }
+  merchants {
+    id
+    merchantName
+  }
+  users {
+    id
+    firstName
+    lastName
+  } 
+}
+`

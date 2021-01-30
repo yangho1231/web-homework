@@ -10,6 +10,7 @@ import { EditUser } from './users/edit-user'
 import { EditMerchant } from './merchants/edit-merchant'
 import { MainCategories } from './categories/main-categories'
 import { EditCategory } from './categories/edit-category'
+import { TransactionsCharts } from './transactions/transactions-chart'
 
 function AppRouter () {
   return (
@@ -32,6 +33,9 @@ function AppRouter () {
             <li>
               <Link to='/categories'>Categories</Link>
             </li>
+            <li>
+              <Link to='/transactions/chart'>Chart</Link>
+            </li>
           </ul>
         </nav>
         <div className='main-content' css={contentStyle}>
@@ -44,6 +48,7 @@ function AppRouter () {
           <Route component={EditUser} exact path='/users/edit/:id' />
           <Route component={EditMerchant} exact path='/merchants/edit/:id' />
           <Route component={EditCategory} exact path='/categories/edit/:id' />
+          <Route component={TransactionsCharts} exact path='/transactions/chart' />
 
         </div>
       </div>
