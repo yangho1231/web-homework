@@ -40,7 +40,7 @@ export function CategoryForm ({ data }) {
   return (
     <form onSubmit={onSubmit}>
       <div>
-        <TextField id='standard-basic' label='Category Name' name='categoryName' onChange={handleTextChange} placeholder='Add Category Name' type='text' value={category.categoryName} />
+        <TextField id='standard-basic' label='Category Name' name='categoryName' onChange={handleTextChange} placeholder='Add Category Name' type='text' value={category.categoryName} variant='outlined' />
       </div>
       <input type='submit' value='Add Category' />
     </form>

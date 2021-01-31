@@ -10,7 +10,6 @@ import { ShowTransactions } from './show-transactions'
 
 export function MainTransaction () {
   const { loading, error, data } = useQuery(GET_TRANSACTIONS)
-  console.log(data)
 
   if (loading) {
     return (
@@ -28,8 +27,8 @@ export function MainTransaction () {
   }
   return (
     <Container>
-      {data && data.transactions.length > 0 && <ShowTransactions data={data.transactions} />}
       {data && <ShowWarning />}
+      {data && data.transactions.length > 0 && <ShowTransactions data={data.transactions} />}
     </Container>
   )
 }

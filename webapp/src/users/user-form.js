@@ -43,10 +43,10 @@ export function UserForm ({ data }) {
   return (
     <form onSubmit={onSubmit}>
       <div>
-        <TextField id='standard-basic' label='First Name' name='firstName' onChange={handleTextChange} placeholder='Add First Name' type='text' value={user.firstName} />
+        <TextField id='standard-basic' label='First Name' name='firstName' onChange={handleTextChange} placeholder='Add First Name' type='text' value={user.firstName} variant='outlined' />
       </div>
       <div>
-        <TextField id='standard-basic' label='Last Name' name='lastName' onChange={handleTextChange} placeholder='Add Last Name' type='text' value={user.lastName} />
+        <TextField id='standard-basic' label='Last Name' name='lastName' onChange={handleTextChange} placeholder='Add Last Name' type='text' value={user.lastName} variant='outlined' />
       </div>
       <input type='submit' value='Add User' />
     </form>

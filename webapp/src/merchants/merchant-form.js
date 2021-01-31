@@ -40,7 +40,7 @@ export function MerchantForm ({ data }) {
   return (
     <form onSubmit={onSubmit}>
       <div>
-        <TextField id='standard-basic' label='Merchant Name' name='merchantName' onChange={handleTextChange} placeholder='Add Merchant Name' type='text' value={merchant.merchantName} />
+        <TextField id='standard-basic' label='Merchant Name' name='merchantName' onChange={handleTextChange} placeholder='Add Merchant Name' type='text' value={merchant.merchantName} variant='outlined' />
       </div>
       <input type='submit' value='Add Merchant' />
     </form>
