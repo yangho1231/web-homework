@@ -3,6 +3,7 @@ import { arrayOf, string, bool, number, shape } from 'prop-types'
 import { css } from '@emotion/core'
 // import { Container } from '@material-ui/core'
 import { REMOVE_TRANSACTION, GET_TRANSACTIONS } from '../gql/transactions'
+import { RomanNumeralConverter } from '../service/roman-numeral-converter'
 import { useMutation } from '@apollo/client'
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
 import EditIcon from '@material-ui/icons/Edit'
@@ -32,7 +33,7 @@ const editIcon = css`
 `
 const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
 
-export function ShowTransactions ({ data }) {
+export function ShowTransactions ({ data, romanNumeral }) {
   const [removeTransaction] = useMutation(REMOVE_TRANSACTION, { refetchQueries: [{ query: GET_TRANSACTIONS }] })
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
@@ -76,7 +77,7 @@ export function ShowTransactions ({ data }) {
                     <TableCell data-testid={makeDataTestId(id, 'category')}>{category.categoryName}</TableCell>
                     <TableCell data-testid={makeDataTestId(id, 'debit')}>{String(debit)}</TableCell>
                     <TableCell data-testid={makeDataTestId(id, 'credit')}>{String(credit)}</TableCell>
-                    <TableCell data-testid={makeDataTestId(id, 'amount')}>{amount}</TableCell>
+                    <TableCell data-testid={makeDataTestId(id, 'amount')}>{ RomanNumeralConverter(amount, romanNumeral) }</TableCell>
                     <TableCell><DeleteForeverOutlinedIcon css={deleteIcon} onClick={() => { removeTransaction({ variables: { id } }) }} /></TableCell>
                     <TableCell><Link to={`/transactions/edit/${id}`}><EditIcon css={editIcon} /></Link></TableCell>
                   </TableRow>
@@ -113,5 +114,6 @@ ShowTransactions.propTypes = {
     debit: bool,
     credit: bool,
     amount: number
-  }))
+  })),
+  romanNumeral: string
 }

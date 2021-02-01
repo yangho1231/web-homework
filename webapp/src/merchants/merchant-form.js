@@ -17,11 +17,13 @@ export function MerchantForm ({ data }) {
   const dialogs = { warning: false, redirect: false }
   const [open, setOpen] = useState(dialogs)
   const emptyMerchant = { merchantName: (data && data.merchantName) ? data.merchantName : '' }
+  const emptyForm = { merchantName: '' }
   const [merchant, setMerchant] = useState(emptyMerchant)
   const [addMerchant] = useMutation(ADD_MERCHANT, {
     onCompleted: (data) => {
-      data = null
-      setMerchant(emptyMerchant)
+      if (data) {
+        setMerchant(emptyForm)
+      }
     },
     refetchQueries: [{ query: GET_MERCHANTS }]
   })
@@ -29,6 +31,7 @@ export function MerchantForm ({ data }) {
     onCompleted: (data) => {
       if (data) {
         setOpen({ ...open, redirect: true })
+        setMerchant(emptyForm)
       }
     },
     refetchQueries: [{ query: GET_MERCHANTS }]

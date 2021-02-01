@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { React, useState, Fragment } from 'react'
 import { useQuery } from '@apollo/client'
 import { GET_TRANSACTIONS } from '../gql/transactions'
 import { Container } from '@material-ui/core'
@@ -7,10 +7,14 @@ import { Container } from '@material-ui/core'
 // import { TransactionsCharts } from './transactions-chart'
 import { ShowWarning } from './show-warning'
 import { ShowTransactions } from './show-transactions'
+import { RomanNumeralOption } from './roman-numeral-option'
 
 export function MainTransaction () {
   const { loading, error, data } = useQuery(GET_TRANSACTIONS)
-
+  const [romanNumeral, setRomanNumeral] = useState('number')
+  const selectNumRomanOption = async (task) => {
+    setRomanNumeral(task)
+  }
   if (loading) {
     return (
       <Fragment>
@@ -27,8 +31,9 @@ export function MainTransaction () {
   }
   return (
     <Container>
+      {data && <RomanNumeralOption onSelect={selectNumRomanOption} />}
       {data && <ShowWarning />}
-      {data && data.transactions.length > 0 && <ShowTransactions data={data.transactions} />}
+      {data && data.transactions.length > 0 && <ShowTransactions data={data.transactions} romanNumeral={romanNumeral} />}
     </Container>
   )
 }

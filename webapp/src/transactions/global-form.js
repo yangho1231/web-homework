@@ -35,14 +35,14 @@ export function GlobalForm ({ data }) {
     description: (data && data.description) ? data.description : '',
     credit: (data && data.credit) ? data.credit : false,
     debit: (data && data.debit) ? data.debit : false }
+  const emptyForm = { userId: '', merchantId: '', categoryId: '', amount: 0, description: '', credit: false, debit: false }
   const [transaction, setTransaction] = useState(emptyTransaction)
   const { data: merchantData } = useQuery(GET_MERCHANTS)
   const { data: userData } = useQuery(GET_USERS)
   const { data: categoryData } = useQuery(GET_CATEGORIES)
   const [addTransaction] = useMutation(ADD_TRANSACTION, {
     onCompleted: (data) => {
-      data = null
-      setTransaction(emptyTransaction)
+      setTransaction(emptyForm)
     },
     refetchQueries: [{ query: GET_TRANSACTIONS }]
   })
@@ -50,6 +50,7 @@ export function GlobalForm ({ data }) {
     onCompleted: (data) => {
       if (data) {
         setOpen({ ...open, redirect: true })
+        setTransaction(emptyForm)
       }
     },
     refetchQueries: [{ query: GET_TRANSACTIONS }]
@@ -86,10 +87,10 @@ export function GlobalForm ({ data }) {
     <form css={form} onSubmit={onSubmit}>
       <div>
         <div>
-          <TextField id='standard-basic' label='amount' name='amount' onChange={handleTextChange} placeholder='Add amount' required type='number' value={transaction.amount} variant='outlined' />
+          <TextField id='firstName' label='amount' name='amount' onChange={handleTextChange} placeholder='Add amount' required type='number' value={transaction.amount} variant='outlined' />
         </div>
         <div>
-          <TextField id='standard-basic' label='description' name='description' onChange={handleTextChange} placeholder='Add description' type='text' value={transaction.description} variant='outlined' />
+          <TextField id='lastName' label='description' name='description' onChange={handleTextChange} placeholder='Add description' type='text' value={transaction.description} variant='outlined' />
         </div>
         <div>
           <FormControl>
@@ -167,7 +168,7 @@ export function GlobalForm ({ data }) {
             <DialogTitle id='alert-dialog-title'>Updated Successfully</DialogTitle>
             <DialogContent>
               <DialogContentText id='alert-dialog-description'>
-                Click Ok to go back to Merchants page.
+                Click Ok to go back to Transactions page.
               </DialogContentText>
             </DialogContent>
             <DialogActions>

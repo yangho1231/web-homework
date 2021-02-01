@@ -20,11 +20,13 @@ export function UserForm ({ data }) {
     firstName: (data && data.firstName) ? data.firstName : '',
     lastName: (data && data.lastName) ? data.lastName : ''
   }
+  const emptyForm = { firstName: '', lastName: '' }
   const [user, setUser] = useState(emptyUser)
   const [addUser] = useMutation(ADD_USER, {
     onCompleted: (data) => {
-      data = null
-      setUser(emptyUser)
+      if (data) {
+        setUser(emptyForm)
+      }
     },
     refetchQueries: [{ query: GET_USERS }]
   })
@@ -32,6 +34,7 @@ export function UserForm ({ data }) {
     onCompleted: (data) => {
       if (data) {
         setOpen({ ...open, redirect: true })
+        setUser(emptyForm)
       }
     },
     refetchQueries: [{ query: GET_USERS }]
@@ -58,10 +61,10 @@ export function UserForm ({ data }) {
   return (
     <form css={form} onSubmit={onSubmit}>
       <div>
-        <TextField id='standard-basic' label='First Name' name='firstName' onChange={handleTextChange} placeholder='Add First Name' type='text' value={user.firstName} variant='outlined' />
+        <TextField id='firstName' label='First Name' name='firstName' onChange={handleTextChange} placeholder='Add First Name' type='text' value={user.firstName} variant='outlined' />
       </div>
       <div>
-        <TextField id='standard-basic' label='Last Name' name='lastName' onChange={handleTextChange} placeholder='Add Last Name' type='text' value={user.lastName} variant='outlined' />
+        <TextField id='lastName' label='Last Name' name='lastName' onChange={handleTextChange} placeholder='Add Last Name' type='text' value={user.lastName} variant='outlined' />
       </div>
       <Button color='primary' type='submit' variant='contained'>Add User</Button>
       <Dialog

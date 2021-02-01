@@ -18,11 +18,13 @@ export function CategoryForm ({ data }) {
   const dialogs = { warning: false, redirect: false }
   const [open, setOpen] = useState(dialogs)
   const emptyCategory = { categoryName: (data && data.categoryName) ? data.categoryName : '' }
+  const emptyForm = { categoryName: '' }
   const [category, setCategory] = useState(emptyCategory)
   const [addCategory] = useMutation(ADD_CATEGORY, {
     onCompleted: (data) => {
-      data = null
-      setCategory(emptyCategory)
+      if (data) {
+        setCategory(emptyForm)
+      }
     },
     refetchQueries: [{ query: GET_CATEGORIES }]
   })
@@ -30,6 +32,7 @@ export function CategoryForm ({ data }) {
     onCompleted: (data) => {
       if (data) {
         setOpen({ ...open, redirect: true })
+        setCategory(emptyForm)
       }
     },
     refetchQueries: [{ query: GET_CATEGORIES }]
