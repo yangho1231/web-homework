@@ -1,5 +1,5 @@
 /* eslint react/prop-types: 0 */
-import { React } from 'react'
+import { React, useState } from 'react'
 import { css } from '@emotion/core'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
@@ -7,8 +7,10 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 
 export function RomanNumeralOption ({ onSelect }) {
+  const [selectedValue, setSelectedValue] = useState('number')
   const handleSelectChange = (event) => {
     onSelect(event.target.value)
+    setSelectedValue(event.target.value)
   }
   return (
     <FormControl css={form} variant='outlined'>
@@ -16,6 +18,7 @@ export function RomanNumeralOption ({ onSelect }) {
       <Select
         id='romanId'
         onChange={handleSelectChange}
+        value={selectedValue}
       >
         <MenuItem value='number'>Number</MenuItem>
         <MenuItem value='roman'>Roman</MenuItem>

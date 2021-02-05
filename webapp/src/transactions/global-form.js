@@ -30,7 +30,7 @@ export function GlobalForm ({ data }) {
   const emptyTransaction = {
     userId: (data && data.userId) ? data.userId : '',
     merchantId: (data && data.merchantId) ? data.merchantId : '',
-    categoryId: (data && data.categoryId) ? data.categoryId : '',
+    categoryId: (data && data.category.id) ? data.category.id : '',
     amount: (data && data.amount) ? data.amount : 0,
     description: (data && data.description) ? data.description : '',
     credit: (data && data.credit) ? data.credit : false,
@@ -95,7 +95,7 @@ export function GlobalForm ({ data }) {
         <div>
           <FormControl>
             <FormLabel>Credit/Debit</FormLabel>
-            <RadioGroup name='credit/debit' onChange={handleRadioChange}>
+            <RadioGroup name='credit/debit' onChange={handleRadioChange} value={transaction.credit === true ? 'credit' : transaction.debit === true ? 'debit' : ''}>
               <FormControlLabel control={<Radio />} label='Credit' value='credit' />
               <FormControlLabel control={<Radio />} label='Debit' value='debit' />
             </RadioGroup>
@@ -109,7 +109,9 @@ export function GlobalForm ({ data }) {
             id='userId'
             name='userId'
             onChange={handleTextChange}
+            value={transaction.userId}
           >
+            <MenuItem value=''>None</MenuItem>
             {userData && userData.users.map((user) => (
               <MenuItem key={user.id} value={user.id || ''}>{user.firstName} {user.lastName}</MenuItem>
             ))}
@@ -121,7 +123,9 @@ export function GlobalForm ({ data }) {
             id='merchantId'
             name='merchantId'
             onChange={handleTextChange}
+            value={transaction.merchantId}
           >
+            <MenuItem value=''>None</MenuItem>
             {merchantData && merchantData.merchants.map((merchant) => (
               <MenuItem key={merchant.id} value={merchant.id || ''}>{merchant.merchantName}</MenuItem>
             ))}
@@ -133,7 +137,9 @@ export function GlobalForm ({ data }) {
             id='categoryId'
             name='categoryId'
             onChange={handleTextChange}
+            value={transaction.categoryId}
           >
+            <MenuItem value=''>None</MenuItem>
             {categoryData && categoryData.categories.map((category) => (
               <MenuItem key={category.id} value={category.id || ''}>{category.categoryName}</MenuItem>
             ))}
