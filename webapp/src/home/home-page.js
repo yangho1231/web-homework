@@ -1,14 +1,23 @@
 import React from 'react'
+import { string } from 'prop-types'
 import { css } from '@emotion/core'
+import { I18nProvider } from '../i18n'
+import translate from '../i18n/translate'
 
-export function HomePage () {
+export function HomePage ({ language }) {
   return (
-    <div css={home}>
-      <h1>Transactions instruction:</h1>
-      <p>Please add merchant, user, and category before adding transactions.</p>
-      <p>You won&apos;t be able to add transactions if you don&apos;t add above 3 categories.</p>
-    </div>
+    <I18nProvider locale={language}>
+      <div css={home}>
+        <h1>{translate('headerTitle')}</h1>
+        <p>{translate('headerInstruction1')}</p>
+        <p>{translate('headerInstruction2')}</p>
+      </div>
+    </I18nProvider>
   )
+}
+
+HomePage.propTypes = {
+  language: string
 }
 
 const home = css`

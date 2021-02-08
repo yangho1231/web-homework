@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { css } from '@emotion/core'
 import { HomePage } from './home/home-page'
@@ -12,14 +12,21 @@ import { MainCategories } from './categories/main-categories'
 import { EditCategory } from './categories/edit-category'
 import { TransactionsCharts } from './transactions/transactions-chart'
 import { Header } from './home/header'
+import { TranslationButton } from './translation/translation-button'
+import { LOCALES } from './i18n'
 
 function AppRouter () {
+  const [language, setLanguage] = useState(LOCALES.ENGLISH)
+  const translateLanguage = async (task) => {
+    setLanguage(task)
+  }
   return (
     <Router>
       <div css={layoutStyle}>
-        <Header />
+        <Header language={language} />
+        <TranslationButton translation={translateLanguage} />
         <div className='main-content'>
-          <Route component={HomePage} exact path='/' />
+          <Route exact path='/'><HomePage language={language} /></Route>
           <Route component={MainTransaction} exact path='/transactions' />
           <Route component={MainUsers} exact path='/users' />
           <Route component={MainMerchants} exact path='/merchants' />

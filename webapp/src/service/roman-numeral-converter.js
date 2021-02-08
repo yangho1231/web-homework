@@ -1,4 +1,5 @@
 export function RomanNumeralConverter (value, romanNumeral) {
+  //  Decimal doesn't work
   if (romanNumeral === 'number') {
     return value
   }
