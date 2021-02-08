@@ -11,6 +11,6 @@ export default {
     'chart': 'Chart',
     'headerTitle': 'Transactions instruction:',
     'headerInstruction1': 'Please add merchant, user, and category before adding transactions.',
-    'headerInstruction2': 'You won&apos;t be able to add transactions if you don&apos;t add above 3 categories.'
+    'headerInstruction2': 'You won\'t be able to add transactions if you don\'t add above 3 categories.'
   }
 }

@@ -11,7 +11,6 @@ export function TranslationButton ({ translation }) {
   return (
     <I18nProvider locale={locale}>
       <div css={translationButton}>
-        {translate('englishButton')}
         <Button color='primary' onClick={() => { setLocale(LOCALES.ENGLISH) }} variant='contained'>{translate('englishButton')}</Button>
         <Button color='primary' onClick={() => { setLocale(LOCALES.KOREAN) }} variant='contained'>{translate('koreanButton')}</Button>
       </div>
